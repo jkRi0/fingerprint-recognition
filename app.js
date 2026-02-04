@@ -532,57 +532,54 @@ $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();   
 });
 
-function checkOnly(stayChecked)
-{
+function checkOnly(stayChecked){
     disableEnableExport(true);
     onClear();
-    onStop();
-with(document.myForm)
-  {
-  for(i = 0; i < elements.length; i++)
+    if (typeof test !== 'undefined' && test && typeof test.stopCapture === 'function') {
+        onStop();
+    }
+    var form = document.myForm;
+    for(i = 0; i < form.elements.length; i++)
     {
-    if(elements[i].checked == true && elements[i].name != stayChecked.name)
-      {
-      elements[i].checked = false;
-      }
+        if(form.elements[i].checked == true && form.elements[i].name != stayChecked.name)
+        {
+            form.elements[i].checked = false;
+        }
     }
     //Enable disable save button
-    for(i = 0; i < elements.length; i++)
+    for(i = 0; i < form.elements.length; i++)
     {
-    if(elements[i].checked == true)
-      {
-        if(elements[i].name =="PngImage"){
-            disableEnableSaveThumbnails(false);
-        }else{
-            disableEnableSaveThumbnails(true);
+        if(form.elements[i].checked == true)
+        {
+            if(form.elements[i].name =="PngImage"){
+                disableEnableSaveThumbnails(false);
+            }else{
+                disableEnableSaveThumbnails(true);
+            }
         }
-      }
     }
-  }
 }         
 
 function assignFormat(){
     currentFormat = "";
-    with(document.myForm){
-        for(i = 0; i < elements.length; i++){
-            if(elements[i].checked == true){
-                if(elements[i].name == "Raw"){
-                    currentFormat = Fingerprint.SampleFormat.Raw;
-                }
-                if(elements[i].name == "Intermediate"){
-                    currentFormat = Fingerprint.SampleFormat.Intermediate;
-                }
-                if(elements[i].name == "Compressed"){
-                    currentFormat = Fingerprint.SampleFormat.Compressed;
-                }
-                if(elements[i].name == "PngImage"){
-                    currentFormat = Fingerprint.SampleFormat.PngImage;
-                }
+    var form = document.myForm;
+    for(i = 0; i < form.elements.length; i++){
+        if(form.elements[i].checked == true){
+            if(form.elements[i].name == "Raw"){
+                currentFormat = Fingerprint.SampleFormat.Raw;
+            }
+            if(form.elements[i].name == "Intermediate"){
+                currentFormat = Fingerprint.SampleFormat.Intermediate;
+            }
+            if(form.elements[i].name == "Compressed"){
+                currentFormat = Fingerprint.SampleFormat.Compressed;
+            }
+            if(form.elements[i].name == "PngImage"){
+                currentFormat = Fingerprint.SampleFormat.PngImage;
             }
         }
     }
 }
-
 
 function disableEnableExport(val){
     if(val){
@@ -591,7 +588,6 @@ function disableEnableExport(val){
         $('#saveImagePng').prop('disabled', false); 
     }
 }
-
 
 function disableEnableSaveThumbnails(val){
     if(val){
