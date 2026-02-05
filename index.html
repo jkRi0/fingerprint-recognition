@@ -1,19 +1,40 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Fingerprint Recognition</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Fingerprint Recognition</title>
+	<link rel="stylesheet" href="css/bootstrap-min.css">
+	<link rel="stylesheet" href="app.css">
 </head>
 <body>
-    <div id="content-capture">
-        <div id="status"></div>
-        <div id="imagediv"></div>
-    </div>
-    <script src="lib/jquery.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
-    <script src="scripts/es6-shim.js"></script>
-    <script src="scripts/websdk.client.bundle.min.js"></script>
-    <script src="scripts/fingerprint.sdk.min.js"></script>
-    <script src="app.js"></script>
+	<div class="app-root">
+		<div class="app-card shadow-sm">
+			<header class="app-header">
+				<h1 class="app-title">Fingerprint Recognition</h1>
+				<p class="app-subtitle">Place your finger on the reader to begin automatic capture.</p>
+				<a href="login.php" class="btn btn-primary" style="margin-top:14px;">Go to Login</a>
+			</header>
+			<main class="app-main">
+				<div id="content-capture" class="capture-layout">
+					<div class="capture-preview">
+						<div id="imagediv" class="fingerprint-preview empty-state"></div>
+					</div>
+					<div class="capture-status">
+						<div id="status" class="status-text">Initializing reader... please wait.</div>
+						<div class="status-helper">Make sure your fingerprint scanner is connected. Capture will start automatically when a reader is detected.</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+	<script src="scripts/es6-shim.js"></script>
+	<script src="scripts/websdk.client.bundle.min.js"></script>
+	<script src="scripts/fingerprint.sdk.min.js"></script>
+	<script src="app.js"></script>
 </body>
 </html>

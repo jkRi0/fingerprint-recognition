@@ -1,1 +1,208 @@
 ﻿/* CSS intentionally left empty: all custom styling/design removed as requested. */
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-size: 22px;
+
+	background: radial-gradient(circle at top left, #233876 0, #050816 45%, #020617 90%);
+	color: #e5e7eb;
+}
+
+.app-root {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+}
+
+.app-card {
+	width: 100%;
+	max-width: 960px;
+	background: rgba(15, 23, 42, 0.92);
+	border-radius: 20px;
+	border: 1px solid rgba(148, 163, 184, 0.35);
+	box-shadow: 0 24px 80px rgba(15, 23, 42, 0.75);
+	backdrop-filter: blur(18px);
+	padding: 28px 28px 24px;
+}
+
+@media (min-width: 768px) {
+	.app-card {
+		padding: 32px 36px 28px;
+	}
+}
+
+.app-header {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 24px;
+}
+
+.app-title {
+	margin: 0;
+	font-size: 2.4rem;
+
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	color: #e5e7eb;
+}
+
+.app-subtitle {
+	margin: 0;
+	font-size: 1.4rem;
+
+	color: #9ca3af;
+}
+
+.app-main {
+	display: flex;
+	flex-direction: column;
+}
+
+.capture-layout {
+	display: grid;
+	grid-template-columns: 1.3fr 1fr;
+	gap: 24px;
+	align-items: stretch;
+}
+
+@media (max-width: 768px) {
+	.capture-layout {
+		grid-template-columns: 1fr;
+	}
+}
+
+.capture-preview {
+	background: radial-gradient(circle at top, rgba(56, 189, 248, 0.14), transparent 60%);
+	border-radius: 16px;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.fingerprint-preview {
+	width: 100%;
+	min-height: 260px;
+	max-height: 500px;
+	border-radius: 14px;
+	border: 1px dashed rgba(148, 163, 184, 0.6);
+	background: radial-gradient(circle at top, rgba(15, 118, 110, 0.22), rgba(15, 23, 42, 0.95));
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+}
+
+.fingerprint-preview img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.fingerprint-preview.empty-state::before {
+	content: "Awaiting fingerprint sample";
+	font-size: 0.9rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #9ca3af;
+}
+
+.capture-status {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.status-text {
+	font-size: 1.3rem;
+
+	padding: 10px 12px;
+	border-radius: 999px;
+	background: rgba(15, 23, 42, 0.9);
+	border: 1px solid rgba(59, 130, 246, 0.55);
+	color: #dbeafe;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.status-text::before {
+	content: "";
+	width: 8px;
+	height: 8px;
+	border-radius: 999px;
+	background: #22c55e;
+	box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.18);
+}
+
+.status-helper {
+	font-size: 1.2rem;
+
+	color: #9ca3af;
+	line-height: 1.5;
+}
+
+.status-helper strong {
+	color: #e5e7eb;
+}
+
+.control-row {
+	margin-top: 18px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.btn-ghost {
+	border-radius: 999px;
+
+	border: 1px solid rgba(148, 163, 184, 0.55);
+	background: transparent;
+	color: #e5e7eb;
+	padding: 13px 20px;
+	font-size: 1.2rem;
+
+	line-height: 1.3;
+	transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease, transform 0.08s ease;
+	cursor: pointer;
+}
+
+.btn-ghost:hover {
+	background: rgba(148, 163, 184, 0.15);
+	border-color: rgba(209, 213, 219, 0.9);
+	transform: translateY(-1px);
+}
+
+.btn-ghost:active {
+	transform: translateY(0);
+	background: rgba(148, 163, 184, 0.22);
+}
+
+.btn-primary {
+	width: 100%;
+	border-radius: 999px;
+	border: 1px solid rgba(55, 65, 81, 0.9);
+	background: rgba(15, 23, 42, 0.9);
+	color: #e5e7eb;
+	font-size: 1.15rem;
+	padding: 8px 12px;
+	outline: none;
+	margin-bottom: 8px;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.btn-primary:active {
+	transform: translateY(0);
+	box-shadow: none;
+}
