@@ -52,7 +52,10 @@ var FingerprintSdkTest = (function () {
         };
         this.sdk.onQualityReported = function (e) {
             // Quality of sample aquired - Function triggered on every sample acquired
-                document.getElementById("qualityInputBox").value = Fingerprint.QualityCode[(e.quality)];
+            var qualityBox = document.getElementById("qualityInputBox");
+            if (qualityBox) {
+                qualityBox.value = Fingerprint.QualityCode[(e.quality)];
+            }
         }
 
     }
@@ -115,10 +118,22 @@ function showMessage(message){
 window.onload = function () {
     localStorage.clear();
     test = new FingerprintSdkTest();
-    readersDropDownPopulate(true); //To populate readers for drop down selection
-    disableEnable(); // Disabling enabling buttons - if reader not selected
-    enableDisableScanQualityDiv("content-reader"); // To enable disable scan quality div
-    disableEnableExport(true);
+
+    // In the simplified UI, auto-select the first available reader (if any)
+    // and start capture, without relying on the removed dropdown/buttons.
+    test.getInfo().then(function (sucessObj) {
+        if (sucessObj && sucessObj.length > 0) {
+            myVal = sucessObj[0];
+            disableEnableExport(true);
+            onStart();
+        } else {
+            showMessage("No reader detected. Please connect a reader.");
+            disableEnableExport(true);
+        }
+    }, function (error) {
+        showMessage(error.message);
+        disableEnableExport(true);
+    });
 };
 
 
@@ -192,7 +207,7 @@ function toggle_visibility(ids) {
             disableEnable();
         }
        else{
-            e.style.display = 'none';
+            e.style.display = 'block';
        }
    }
 }
@@ -341,11 +356,6 @@ function checkReaderCount(sucessObj,checkForRedirecting){
     alert("No reader detected. Please connect a reader.");
    }else if(sucessObj.length == 1){
         document.getElementById("readersDropDown").selectedIndex = "1";
-        if(checkForRedirecting){
-            toggle_visibility(['content-capture','content-reader']);    
-            enableDisableScanQualityDiv("content-capture"); // To enable disable scan quality div
-            setActive('Capture','Reader'); // Set active state to capture
-        }
    }
 
     selectChangeEvent(); // To make the reader selected
@@ -561,24 +571,8 @@ function checkOnly(stayChecked){
 }         
 
 function assignFormat(){
-    currentFormat = "";
-    var form = document.myForm;
-    for(i = 0; i < form.elements.length; i++){
-        if(form.elements[i].checked == true){
-            if(form.elements[i].name == "Raw"){
-                currentFormat = Fingerprint.SampleFormat.Raw;
-            }
-            if(form.elements[i].name == "Intermediate"){
-                currentFormat = Fingerprint.SampleFormat.Intermediate;
-            }
-            if(form.elements[i].name == "Compressed"){
-                currentFormat = Fingerprint.SampleFormat.Compressed;
-            }
-            if(form.elements[i].name == "PngImage"){
-                currentFormat = Fingerprint.SampleFormat.PngImage;
-            }
-        }
-    }
+    // Simplified UI: always use PNG image format for acquisition.
+    currentFormat = Fingerprint.SampleFormat.PngImage;
 }
 
 function disableEnableExport(val){
